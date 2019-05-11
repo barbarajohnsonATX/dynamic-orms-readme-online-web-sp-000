@@ -9,13 +9,14 @@ class Song
   end
 
   def self.column_names
-    binding.pry
     DB[:conn].results_as_hash = true
     
     #query a table for the names of its columns
     sql = "pragma table_info('#{table_name}')"
     
+    #table_info returns array of hashes of column names
     table_info = DB[:conn].execute(sql)
+    
     column_names = []
     table_info.each do |row|
       column_names << row["name"]
