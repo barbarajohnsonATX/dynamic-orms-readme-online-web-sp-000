@@ -9,10 +9,11 @@ class Song
   end
 
   def self.column_names
+    binding.pry
     DB[:conn].results_as_hash = true
-
+  
     sql = "pragma table_info('#{table_name}')"
-
+    
     table_info = DB[:conn].execute(sql)
     column_names = []
     table_info.each do |row|
@@ -52,7 +53,7 @@ class Song
   end
 
   def col_names_for_insert
-    binding.pry
+     
     self.class.column_names.delete_if {|col| col == "id"}.join(", ")
   end
 
